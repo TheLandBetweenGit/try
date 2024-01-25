@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Blue Lakes Project</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #ffffff;
+        }
+
+        #container {
+            padding: 10px;
+            background-color: #ffffff;
+            display: inline-block;
+        }
+
+        #logo {
+            display: block;
+            margin: 0 auto;
+            width: 25%;
+            background-color: transparent;
+        }
+
+        #map {
+            height: 400px;
+            margin: 10px auto;
+        }
+
+        .metadata-section {
+            text-align: left;
+            padding: 20px;
+        }
+
+        .collapsible {
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .active,
+        .collapsible:hover {
+            background-color: #f1f1f1;
+        }
+
+        .content {
+            display: none;
+            padding: 0 18px;
+            overflow: hidden;
+        }
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+
+<body>
+    <div id="container">
+        <img id="logo" src="https://bluelakesproject.s3.amazonaws.com/Blue_Lakes_Logo.png" alt="Blue Lakes Logo">
+        <div id="map"></div>
+    </div>
+
+    <div id="dataSources" class="metadata-section">
+        <button class="collapsible" onclick="toggleCollapsible('dataSourcesContent')">Data Sources</button>
+        <div id="dataSourcesContent" class="content">
+            <h4>Data Sources</h4>
+            <ul>
+                <li>Lake Partner Program (LPP)2.1</li>
+                <li>Provincial Water Quality Monitoring Network (MOECP_PWQMN)2.2</li>
+                <li>Water Quality and Management of Lake Trout Lakes (OMOE_WQMR)2.3</li>
+                <li>Inland Lakes and Streams – Physical Conditions (OMOE_ILM)2.4</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-ajax/dist/leaflet.ajax.min.js"></script>
+    <script>
+        var map = L.map('map').setView([0, 0], 10);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+        function onEachFeature(feature, layer) {
+            console.log("Feature:", feature);
+            console.log("Properties:", feature.properties);
+
+            var popupContent = "<h3>Feature Attributes</h3>";
+            for (var property in feature.properties) {
+                if (feature.properties.hasOwnProperty(property)) {
+                    popupContent += "<strong>" + property + ":</strong> " + feature.properties[property] + "<br>";
+                }
+            }
+
+            var encodedLakeName = encodeURIComponent(feature.properties.OFFICIAL_NAME_LABEL);
+
+            // Temperature folders
+            var temperatureFolders = ["Temp"];
+
+            // Check if the file exists in Temperature folders
+            var temperatureLink = "https://bluelakesproject.s3.amazonaws.com/" + temperatureFolders[0] + "/" + encodedLakeName + "_temperature_graph.jpg";
+            popupContent += '<a href="' + temperatureLink + '" target="_blank">Temperature Graph</a>';
+
+            // Dissolved oxygen folders
+            var doFolders = ["DO"];
+
+            // Check if the file exists in Dissolved Oxygen folders
+            var doLink = "https://bluelakesproject.s3.amazonaws.com/" + doFolders[0] + "/" + encodedLakeName + "_dissolved_oxygen_graph.jpg";
+            popupContent += '<a href="' + doLink + '" target="_blank">Dissolved Oxygen Graph</a>';
+
+            // Phosphorus folders
+            var phosphorusFolders = ["Phosphorus"];
+
+            // Check if the file exists in Phosphorus folders
+            var phosphorusLink = "https://bluelakesproject.s3.amazonaws.com/" + phosphorusFolders[0] + "/" + encodedLakeName + "_phosphorus_graph.jpg";
+            popupContent += '<a href="' + phosphorusLink + '" target="_blank">Phosphorus Graph</a>';
+
+            layer.bindPopup(popupContent);
+        }
+
+        // Updated GeoJSON layer URL
+        var geojsonLayer = new L.GeoJSON.AJAX("https://bluelakesproject.s3.amazonaws.com/OHN_ALL_Cleaned.geojson", {
+            onEachFeature: onEachFeature,
+        });
+
+        geojsonLayer.addTo(map);
+
+        function toggleCollapsible(elementId) {
+            var content = document.getElementById(elementId);
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        }
+    </script>
+</body>
+
+</html>
