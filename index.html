@@ -98,7 +98,7 @@
                 }
             }
 
-            var encodedLakeName = encodeURIComponent(feature.properties.OFFICIAL_NAME_LABEL);
+            var encodedLakeName = encodeURIComponent(feature.properties.OFFICIAL_NAME_LABEL).replace(/%20/g, '+');
 
             // Temperature folders
             var temperatureFolders = ["Temp"];
@@ -143,6 +143,5 @@
 </body>
 
 </html>
-
 
 
