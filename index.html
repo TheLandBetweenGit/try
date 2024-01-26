@@ -84,7 +84,7 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-ajax/dist/leaflet.ajax.min.js"></script>
     <script>
-        var map = L.map('map').setView([0, 0], 10);
+        var map = L.map('map').setView([44.882992, -78.230409], 10); // Set the specified coordinates and adjust the zoom level
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
         function onEachFeature(feature, layer) {
@@ -143,6 +143,7 @@
 </body>
 
 </html>
+
 
 
 
