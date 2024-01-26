@@ -73,21 +73,13 @@
             opacity: 0.7;
         }
     </style>
-    <link rel="stylesheet" href="s3://workingwatersheds/leaflet/leaflet.css" />
-    <style>
-        .legend {
-            /* ... (your existing styles remain unchanged) ... */
-        }
-
-        .legend i {
-            /* ... (your existing styles remain unchanged) ... */
-        }
-    </style>
+    <link rel="stylesheet" href="https://workingwatersheds.s3.ca-central-1.amazonaws.com/leaflet/leaflet.css" />
+   
 </head>
 
 <body>
     <div id="header">
-        <img id="logo" src="s3://workingwatersheds/Logo_TLB_2.png" alt="Working Watershed Project Logo">
+        <img id="logo" src="https://workingwatersheds.s3.ca-central-1.amazonaws.com/Logo_TLB_2.png" alt="Working Watershed Project Logo">
         <h1 id="title">Working Watersheds Mapping</h1>
     </div>
     <div id="map"></div>
@@ -170,9 +162,10 @@
         </div>
     </div>
 
-    <script src="s3://workingwatersheds/leaflet/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet-ajax@2.1.0/dist/leaflet.ajax.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chroma-js@2.1.0"></script>
+        <script src="https://workingwatersheds.s3.ca-central-1.amazonaws.com/leaflet/leaflet.js"></script>
+        <script src="https://unpkg.com/leaflet-ajax@2.1.0/dist/leaflet.ajax.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chroma-js@2.1.0"></script>
+
     <script>
         var map = L.map('map').setView([0, 0], 10);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
@@ -315,6 +308,10 @@
 </body>
 
 </html>
+
+
+
+
 
 
 
