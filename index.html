@@ -64,7 +64,7 @@
 
 <body>
     <div id="container">
-        <img id="logo" src="https://bluelakesproject.s3.ca-central-1.amazonaws.com/Blue_Lakes_Logo.png" alt="Blue Lakes Logo">
+        <img id="logo" src="https://bluelakesproject.s3.amazonaws.com/Blue_Lakes_Logo.png" alt="Blue Lakes Logo">
         <div id="map"></div>
     </div>
 
@@ -98,24 +98,34 @@
                 }
             }
 
-            // Dynamically generate URLs for each type of graph
-            var baseUrl = "https://bluelakesproject.s3.ca-central-1.amazonaws.com"; // Change this to your correct endpoint
-            var lakeName = encodeURIComponent(feature.properties.OFFICIAL_NAME_LABEL.replace(/ /g, '+'));
-            
-            var temperatureLink = baseUrl + "/Temp/" + lakeName + "_temperature_graph.jpg";
+            var encodedLakeName = encodeURIComponent(feature.properties.OFFICIAL_NAME_LABEL);
+
+            // Temperature folders
+            var temperatureFolders = ["Temp"];
+
+            // Check if the file exists in Temperature folders
+            var temperatureLink = "https://bluelakesproject.s3.ca-central-1.amazonaws.com/Temp/" + encodedLakeName + "_Temp_184.png";
             popupContent += '<a href="' + temperatureLink + '" target="_blank">Temperature Graph</a>';
 
-            var doLink = baseUrl + "/DO/" + lakeName + "_dissolved_oxygen_graph.jpg";
+            // Dissolved oxygen folders
+            var doFolders = ["DO"];
+
+            // Check if the file exists in Dissolved Oxygen folders
+            var doLink = "https://bluelakesproject.s3.ca-central-1.amazonaws.com/DO/" + encodedLakeName + "_DO_229.png";
             popupContent += '<a href="' + doLink + '" target="_blank">Dissolved Oxygen Graph</a>';
 
-            var phosphorusLink = baseUrl + "/Phosphorus/" + lakeName + "_phosphorus_graph.jpg";
+            // Phosphorus folders
+            var phosphorusFolders = ["Phosphorus"];
+
+            // Check if the file exists in Phosphorus folders
+            var phosphorusLink = "https://bluelakesproject.s3.ca-central-1.amazonaws.com/Phosphorus/" + encodedLakeName + "_Phosphorus_229.png";
             popupContent += '<a href="' + phosphorusLink + '" target="_blank">Phosphorus Graph</a>';
 
             layer.bindPopup(popupContent);
         }
 
         // Updated GeoJSON layer URL
-        var geojsonLayer = new L.GeoJSON.AJAX("https://bluelakesproject.s3.ca-central-1.amazonaws.com/OHN_ALL_Cleaned.geojson", {
+        var geojsonLayer = new L.GeoJSON.AJAX("https://bluelakesproject.s3.amazonaws.com/OHN_ALL_Cleaned.geojson", {
             onEachFeature: onEachFeature,
         });
 
@@ -133,5 +143,6 @@
 </body>
 
 </html>
+
 
 
