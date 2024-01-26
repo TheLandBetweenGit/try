@@ -104,21 +104,21 @@
             var temperatureFolders = ["Temp"];
 
             // Check if the file exists in Temperature folders
-            var temperatureLink = "https://bluelakesproject.s3.amazonaws.com/" + temperatureFolders[0] + "/" + encodedLakeName + "_temperature_graph.jpg";
+            var temperatureLink = "https://bluelakesproject.s3.amazonaws.com/" + temperatureFolders[0] + "/" + encodedLakeName + "_temperature_graph.png";
             popupContent += '<a href="' + temperatureLink + '" target="_blank">Temperature Graph</a>';
 
             // Dissolved oxygen folders
             var doFolders = ["DO"];
 
             // Check if the file exists in Dissolved Oxygen folders
-            var doLink = "https://bluelakesproject.s3.amazonaws.com/" + doFolders[0] + "/" + encodedLakeName + "_dissolved_oxygen_graph.jpg";
+            var doLink = "https://bluelakesproject.s3.amazonaws.com/" + doFolders[0] + "/" + encodedLakeName + "_dissolved_oxygen_graph.png";
             popupContent += '<a href="' + doLink + '" target="_blank">Dissolved Oxygen Graph</a>';
 
             // Phosphorus folders
             var phosphorusFolders = ["Phosphorus"];
 
             // Check if the file exists in Phosphorus folders
-            var phosphorusLink = "https://bluelakesproject.s3.amazonaws.com/" + phosphorusFolders[0] + "/" + encodedLakeName + "_phosphorus_graph.jpg";
+            var phosphorusLink = "https://bluelakesproject.s3.amazonaws.com/" + phosphorusFolders[0] + "/" + encodedLakeName + "_phosphorus_graph.png";
             popupContent += '<a href="' + phosphorusLink + '" target="_blank">Phosphorus Graph</a>';
 
             layer.bindPopup(popupContent);
