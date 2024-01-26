@@ -1,36 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Blue Lakes Project</title>
-
+    <title>The Land Between Recharge Zones</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
+        #header {
+            background-color: #ffffff;
             text-align: center;
-            background-color: #ffffff;
-        }
-
-        #container {
-            padding: 10px;
-            background-color: #ffffff;
-            display: inline-block;
+            padding: 20px;
         }
 
         #logo {
-            display: block;
-            margin: 0 auto;
-            width: 25%;
-            background-color: transparent;
+            width: 150px;
+        }
+
+        #title {
+            font-size: 24px;
+            margin-top: 10px;
         }
 
         #map {
             height: 400px;
-            margin: 10px auto;
+            margin: 0 auto;
+        }
+
+        body {
+            text-align: center;
         }
 
         .metadata-section {
@@ -58,86 +53,275 @@
             padding: 0 18px;
             overflow: hidden;
         }
+
+        .legend {
+            background-color: white;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            clear: both;
+            font-size: 12px;
+            line-height: 18px;
+            color: #555;
+        }
+
+        .legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
     </style>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="leaflet/leaflet.css" />
+    <style>
+           .legend {
+            background-color: white;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            clear: both;
+            font-size: 12px;
+            line-height: 18px;
+            color: #555;
+        }
+
+        .legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+    </style>
 </head>
 
 <body>
-    <div id="container">
-        <img id="logo" src="https://bluelakesproject.s3.amazonaws.com/Blue_Lakes_Logo.png" alt="Blue Lakes Logo">
-        <div id="map"></div>
+    <div id="header">
+        <img id="logo" src="s3://workingwatersheds/Logo_TLB_2.png" alt="Working Watershed Project Logo">
+        <h1 id="title">Working Watersheds Mapping</h1>
     </div>
+    <div id="map"></div>
+    <div id="metadataText" class="metadata-section">
+        <button class="collapsible">Overview</button>
+        <div class="content">
+            <p>The Working Watersheds project addresses gaps in watershed knowledge, focusing on the risks associated with disturbing or compromising watershed integrity in Ontario. It provides the public with a user-friendly tool to pinpoint the location of wetlands or water bodies within a watershed, elucidating their respective benefits. Headwaters facilitate groundwater recharge to wetlands, contributing to larger river and lake ecosystems at lower elevations through a consistent supply of groundwater and surface flow. Wetlands, situated at headwaters, significantly contribute to water security by regulating water delivery, offering flood protection, and preserving water quality. Our initiative identifies wetlands within headwater watersheds, providing communities insight into crucial ecosystems often overlooked in provincial or municipal regulations. A similar analysis is applied to discharge watersheds, highlighting the significance of wetlands in flood mitigation and water attenuation along the broader water cycle.</p>
+        </div>
 
-    <div id="dataSources" class="metadata-section">
-        <button class="collapsible" onclick="toggleCollapsible('dataSourcesContent')">Data Sources</button>
-        <div id="dataSourcesContent" class="content">
-            <h4>Data Sources</h4>
+        <button class="collapsible">Layers Produced</button>
+        <div class="content">
             <ul>
-                <li>Lake Partner Program (LPP)2.1</li>
-                <li>Provincial Water Quality Monitoring Network (MOECP_PWQMN)2.2</li>
-                <li>Water Quality and Management of Lake Trout Lakes (OMOE_WQMR)2.3</li>
-                <li>Inland Lakes and Streams – Physical Conditions (OMOE_ILM)2.4</li>
+                <li>Headwater/recharge watersheds layer</li>
+                <li>Headwater/recharge watersheds pour point layer</li>
+                <li>Discharge watersheds Layer</li>
+                <li>Discharge watersheds pour point Layer</li>
+                <li>Wetland classification layer</li>
+                <li>Darcy flow layer</li>
             </ul>
         </div>
+
+        <button class="collapsible">Data Sources Used</button>
+        <div class="content">
+            <ul>
+                <li>Headwater/recharge pour point layer
+                    <ul>
+                        <li>MNR Hydro Network</li>
+                    </ul>
+                </li>
+                <li>Headwater/recharge watershed layer
+                    <ul>
+                        <li>Headwater/recharge pour point layer.</li>
+                        <li>MNR Provincial Digital Elevation Model</li>
+                    </ul>
+                </li>
+                <li>Discharge watersheds Layer
+                    <ul>
+                        <li>Ontario Watershed Information Tool (OWIT)</li>
+                        <li>MNR Provincial Digital Elevation Model</li>
+                    </ul>
+                </li>
+                <li>Wetland Classification Layer
+                    <ul>
+                        <li>FRI wetland layer</li>
+                        <li>MNR wetland layers (Classified and unclassified)</li>
+                        <li>MNR Ontario Soil Survey</li>
+                        <li>Ontario Water Monitoring Network</li>
+                    </ul>
+                </li>
+                <li>Darcy Flow Layer
+                    <ul>
+                        <li>Ontario Water Monitoring Network</li>
+                        <li>MNR Provincial Digital Elevation Model</li>
+                        <li>MNR Ontario Soil Survey</li>
+                        <li>Canadian Soil Information Service</li>
+                        <li>Agriculture and Agri foods Canada Soils of Canada datasets</li>
+                        <li>The Government of Canada’s National Soil Database</li>
+                        <li>The Ontario Geological Survey (OGS)</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <button class="collapsible">Methods</button>
+        <div class="content">
+            <ul>
+                <li>Headwater/recharge pour point layer.
+                    <p>This layer was produced using the Ministry of Natural Resources (MNR) Hydro Network layer that indicates stream flow and order throughout the province of Ontario. In order to identify headwater, pour points, all first-order stream intersection points (i.e., where one or more first-order streams intersect with another stream) were identified using a Python script and ArcGIS Pro.</p>
+                </li>
+                <li>Headwater/recharge watershed layer
+                    <p>This layer was produced using the MNR provincial digital elevation model (PDEM) and the previously produced pour point layer. Using the PDEM and ArcGIS Pro a flow direction raster was produced. This layer along with the pour point layer were used as the inputs for the watershed tool available within ArcGIS Pro. Using Python, the watershed tool was applied to each pour point within a 10-kilometer radius from a city/town that had been generated thus producing several thousand watersheds.</p>
+                </li>
+                <li>Discharge watersheds Layer/Pour Point Layer
+                    <p>Watersheds that connect smaller stream systems to larger ones and pass directly through a town/city were identified and delineated and termed discharge watersheds. This was all completed using the Ontario Watershed Information Tool.</p>
+                </li>
+                <li>Darcy Flow Layer:
+                    <p>The Darcy flow layers were created using a variety of layers as indicated above. Using a variety of soil survey data soil types were assigned a hydrological conductivity and porosity coefficient using standard values and values assignment by the ministry of agriculture and Agri foods. After this depth to bedrock was estimated throughout the study areas using a PDEM along with depth to bedrock data available through the Canadian Water Quality Network database. This was completed using data interpolation techniques and was one area that created uncertainty in this project. Finally, after appropriately preparing all these datasets for use, the Darcy flow tool was used in order to estimate groundwater subsurface flow rates at saturation throughout all the headwater watersheds that have been delineated. As the output of the Darcy Flow tool is a raster dataset where each cell represents the estimates subsurface flow rate in m/s, the average cell value for each watershed was calculated and displayed to give a better visual representation of the flow rate for each watershed.</p>
+                </li>
+            </ul>
+        </div>
+
     </div>
 
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet-ajax/dist/leaflet.ajax.min.js"></script>
+    <script src="leaflet/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-ajax@2.1.0/dist/leaflet.ajax.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chroma-js@2.1.0"></script>
     <script>
-        var map = L.map('map').setView([44.882992, -78.230409], 10); // Set the specified coordinates and adjust the zoom level
+        var map = L.map('map').setView([0, 0], 10);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-        function onEachFeature(feature, layer) {
-            console.log("Feature:", feature);
-            console.log("Properties:", feature.properties);
-
-            var popupContent = "<h3>Feature Attributes</h3>";
-            for (var property in feature.properties) {
-                if (feature.properties.hasOwnProperty(property)) {
-                    popupContent += "<strong>" + property + ":</strong> " + feature.properties[property] + "<br>";
-                }
-            }
-
-            var encodedLakeName = encodeURIComponent(feature.properties.OFFICIAL_NAME_LABEL).replace(/%20/g, '+');
-
-            // Temperature folders
-            var temperatureFolders = ["Temp"];
-
-            // Check if the file exists in Temperature folders
-            var temperatureLink = "https://bluelakesproject.s3.ca-central-1.amazonaws.com/Temp/" + encodedLakeName + "_Temp.png";
-            popupContent += '<a href="' + temperatureLink + '" target="_blank">Temperature Graph</a>';
-
-            // Dissolved oxygen folders
-            var doFolders = ["DO"];
-
-            // Check if the file exists in Dissolved Oxygen folders
-            var doLink = "https://bluelakesproject.s3.ca-central-1.amazonaws.com/DO/" + encodedLakeName + "_DO.png";
-            popupContent += '<a href="' + doLink + '" target="_blank">Dissolved Oxygen Graph</a>';
-
-            // Phosphorus folders
-            var phosphorusFolders = ["Phosphorus"];
-
-            // Check if the file exists in Phosphorus folders
-            var phosphorusLink = "https://bluelakesproject.s3.ca-central-1.amazonaws.com/Phosphorus/" + encodedLakeName + "_Phosphorus.png";
-            popupContent += '<a href="' + phosphorusLink + '" target="_blank">Phosphorus Graph</a>';
-
-            layer.bindPopup(popupContent);
+        function getColor(d) {
+            return chroma.scale(['lightblue', 'darkblue']).mode('lab')(d);
         }
 
-        // Updated GeoJSON layer URL
-        var geojsonLayer = new L.GeoJSON.AJAX("https://bluelakesproject.s3.amazonaws.com/OHN_ALL_Cleaned.geojson", {
+        function onEachFeature(feature, layer) {
+            if (feature.properties) {
+                var popupContent = "<h3>Feature Attributes</h3>" +
+                    "<strong>Velocity (m/s):</strong> " + feature.properties.MEAN_Darcy_velocity + "<br>";
+                layer.bindPopup(popupContent);
+            }
+        }
+
+        var values = [0, 0.05, 0.1, 0.15, 0.2];
+
+        var legend = L.control({ position: 'bottomright' });
+
+        legend.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'info legend');
+            div.innerHTML += '<h4>Average Subsurface Flow (m/s)</h4>';
+            for (var i = 0; i < values.length - 1; i++) {
+                div.innerHTML +=
+                    '<i style="background:' + getColor((values[i] + values[i + 1]) / 2) + '"></i> ' +
+                    values[i] + (values[i + 1] ? '&ndash;' + values[i + 1] + '<br>' : '+');
+            }
+            return div;
+        };
+
+        legend.addTo(map);
+
+        var baseMaps = {
+            "Map": L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+        };
+
+        var darcyFlowLayerOne = L.geoJSON.ajax("s3://workingwatersheds/AverageSubsurf_FeaturesToJSO1.geojson", {
+            style: function (feature) {
+                return {
+                    fillColor: getColor(feature.properties.MEAN_Darcy_velocity),
+                    color: 'black',
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.7,
+                };
+            },
             onEachFeature: onEachFeature,
         });
 
-        geojsonLayer.addTo(map);
+        var darcyFlowLayerTwo = L.geoJSON.ajax("s3://workingwatersheds/AverageSubsurf_FeaturesToJSO2.geojson", {
+            style: function (feature) {
+                return {
+                    fillColor: getColor(feature.properties.MEAN_Darcy_velocity),
+                    color: 'black',
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.7,
+                };
+            },
+            onEachFeature: onEachFeature,
+        });
 
-        function toggleCollapsible(elementId) {
-            var content = document.getElementById(elementId);
-            if (content.style.display === "block") {
-                content.style.display = "none";
-            } else {
-                content.style.display = "block";
-            }
+        // Combine Darcy Flow layers into a single layer group
+        var darcyFlowLayersGroup = L.layerGroup([darcyFlowLayerOne, darcyFlowLayerTwo]);
+
+        var headWaterPourPoints = L.geoJSON.ajax("s3://workingwatersheds/ToJSO.geojson", {
+            pointToLayer: function (feature, latlng) {
+                return L.circleMarker(latlng, {
+                    radius: 5,
+                    fillColor: 'black',
+                    color: 'black',
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.7,
+                });
+            },
+            onEachFeature: onEachFeature,
+        });
+
+        var dischargeWatersheds = L.geoJSON.ajax("s3://workingwatersheds/Discharge_Zone_FeaturesToJSO.geojson", {
+            style: {
+                fillColor: 'yellow',
+                color: 'yellow',
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.7,
+            },
+            onEachFeature: onEachFeature,
+        });
+
+        var dischargePourPoints = L.geoJSON.ajax("s3://workingwatersheds/Watershed4Pour_FeaturesToJSO.geojson", {
+            pointToLayer: function (feature, latlng) {
+                return L.circleMarker(latlng, {
+                    radius: 5,
+                    fillColor: 'red',
+                    color: 'red',
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.7,
+                });
+            },
+            onEachFeature: onEachFeature,
+        });
+
+        L.control.layers(baseMaps, {
+            "Head-Water Watersheds": L.geoJSON.ajax("s3://workingwatersheds/Recharge_Zones_ToJSO.geojson", {
+                style: {
+                    color: 'red',
+                    weight: 2,
+                },
+                onEachFeature: onEachFeature,
+            }),
+            "Average Subsurface Flow (m/s)": darcyFlowLayersGroup,
+            "Head-Water Pour Points": headWaterPourPoints,
+            "Discharge Watersheds": dischargeWatersheds,
+            "Discharge Pour Points": dischargePourPoints,
+        }, {
+            collapsed: false,
+            groupName: "Layers",
+            metadataText: document.getElementById('metadataText'),
+        }).addTo(map);
+
+        // Collapsible sections
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
         }
     </script>
 </body>
