@@ -203,7 +203,7 @@
             "Map": L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
         };
 
-        var darcyFlowLayerOne = L.geoJSON.ajax("s3://workingwatersheds/AverageSubsurf_FeaturesToJSO1.geojson", {
+        var darcyFlowLayerOne = L.geoJSON.ajax("https://workingwatersheds.s3.ca-central-1.amazonaws.com/AverageSubsurf_FeaturesToJSO1.geojson", {
             style: function (feature) {
                 return {
                     fillColor: getColor(feature.properties.MEAN_Darcy_velocity),
@@ -216,7 +216,7 @@
             onEachFeature: onEachFeature,
         });
 
-        var darcyFlowLayerTwo = L.geoJSON.ajax("s3://workingwatersheds/AverageSubsurf_FeaturesToJSO2.geojson", {
+        var darcyFlowLayerTwo = L.geoJSON.ajax("https://workingwatersheds.s3.ca-central-1.amazonaws.com/AverageSubsurf_FeaturesToJSO2.geojson", {
             style: function (feature) {
                 return {
                     fillColor: getColor(feature.properties.MEAN_Darcy_velocity),
@@ -232,7 +232,7 @@
         // Combine Darcy Flow layers into a single layer group
         var darcyFlowLayersGroup = L.layerGroup([darcyFlowLayerOne, darcyFlowLayerTwo]);
 
-        var headWaterPourPoints = L.geoJSON.ajax("s3://workingwatersheds/ToJSO.geojson", {
+        var headWaterPourPoints = L.geoJSON.ajax("https://workingwatersheds.s3.ca-central-1.amazonaws.com/ToJSO.geojson", {
             pointToLayer: function (feature, latlng) {
                 return L.circleMarker(latlng, {
                     radius: 5,
@@ -246,7 +246,7 @@
             onEachFeature: onEachFeature,
         });
 
-        var dischargeWatersheds = L.geoJSON.ajax("s3://workingwatersheds/Discharge_Zone_FeaturesToJSO.geojson", {
+        var dischargeWatersheds = L.geoJSON.ajax("https://workingwatersheds.s3.ca-central-1.amazonaws.com/Discharge_Zone_FeaturesToJSO.geojson", {
             style: {
                 fillColor: 'yellow',
                 color: 'yellow',
@@ -257,7 +257,7 @@
             onEachFeature: onEachFeature,
         });
 
-        var dischargePourPoints = L.geoJSON.ajax("s3://workingwatersheds/Watershed4Pour_FeaturesToJSO.geojson", {
+        var dischargePourPoints = L.geoJSON.ajax("https://workingwatersheds.s3.ca-central-1.amazonaws.com/Watershed4Pour_FeaturesToJSO.geojson", {
             pointToLayer: function (feature, latlng) {
                 return L.circleMarker(latlng, {
                     radius: 5,
@@ -272,7 +272,7 @@
         });
 
         L.control.layers(baseMaps, {
-            "Head-Water Watersheds": L.geoJSON.ajax("s3://workingwatersheds/Recharge_Zones_ToJSO.geojson", {
+            "Head-Water Watersheds": L.geoJSON.ajax("https://workingwatersheds.s3.ca-central-1.amazonaws.com/Recharge_Zones_ToJSO.geojson", {
                 style: {
                     color: 'red',
                     weight: 2,
