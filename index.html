@@ -202,6 +202,74 @@
             "Map": L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
         };
 
+        var darcyFlowLayerOne = L.geoJSON.ajax("https://workingwatersheds.s3.ca-central-1.amazonaws.com/AverageSubsurf_FeaturesToJSO1.geojson", {
+            style: function (feature) {
+                return {
+                    fillColor: getColor(feature.properties.MEAN_Darcy_velocity),
+                    color: 'black',
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.7,
+                };
+            },
+            onEachFeature: onEachFeature,
+        });
+
+        var darcyFlowLayerTwo = L.geoJSON.ajax("https://workingwatersheds.s3.ca-central-1.amazonaws.com/AverageSubsurf_FeaturesToJSO2.geojson", {
+            style: function (feature) {
+                return {
+                    fillColor: getColor(feature.properties.MEAN_Darcy_velocity),
+                    color: 'black',
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.7,
+                };
+            },
+            onEachFeature: onEachFeature,
+        });
+
+        // Combine Darcy Flow layers into a single layer group
+        var darcyFlowLayersGroup = L.layerGroup([darcyFlowLayerOne, darcyFlowLayerTwo]);
+
+        var headWaterPourPoints = L.geoJSON.ajax("https://workingwatersheds.s3.ca-central-1.amazonaws.com/ToJSO.geojson", {
+            pointToLayer: function (feature, latlng) {
+                return L.circleMarker(latlng, {
+                    radius: 5,
+                    fillColor: 'black',
+                    color: 'black',
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.7,
+                });
+            },
+            onEachFeature: onEachFeature,
+        });
+
+        var dischargeWatersheds = L.geoJSON.ajax("https://workingwatersheds.s3.ca-central-1.amazonaws.com/Discharge_Zone_FeaturesToJSO.geojson", {
+            style: {
+                fillColor: 'yellow',
+                color: 'yellow',
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.7,
+            },
+            onEachFeature: onEachFeature,
+        });
+
+        var dischargePourPoints = L.geoJSON.ajax("https://workingwatersheds.s3.ca-central-1.amazonaws.com/Watershed4Pour_FeaturesToJSO.geojson", {
+            pointToLayer: function (feature, latlng) {
+                return L.circleMarker(latlng, {
+                    radius: 5,
+                    fillColor: 'red',
+                    color: 'red',
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.7,
+                });
+            },
+            onEachFeature: onEachFeature,
+        });
+
         // Stream Segments layer
         var streamSegments = L.geoJSON.ajax("https://workingwatersheds.s3.ca-central-1.amazonaws.com/Stream_order_lines.geojson", {
             // Add styling and interaction as needed
