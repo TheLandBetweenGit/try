@@ -202,12 +202,7 @@
         var baseMaps = {
             "Map": L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
         };
-        var streamGridTiff = L.imageOverlay("https://workingwatersheds.s3.ca-central-1.amazonaws.com/StreamGridSE.tif", [[44.451139, -78.871557], [46.208097, -76.299947]]);
-        var averageSubsurfTiff = L.imageOverlay("https://workingwatersheds.s3.ca-central-1.amazonaws.com/AverageSubsurf_FeaturesToJSO2.tif", [[44.451139, -78.871557], [46.208097, -76.299947]]);
-
-        // Add TIFF layers to map
-        streamGridTiff.addTo(map);
-        averageSubsurfTiff.addTo(map);
+        
 
         var darcyFlowLayerOne = L.geoJSON.ajax("https://workingwatersheds.s3.ca-central-1.amazonaws.com/AverageSubsurf_FeaturesToJSO1.geojson", {
             style: function (feature) {
